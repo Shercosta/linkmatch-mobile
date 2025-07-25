@@ -2,6 +2,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { baseStyles } from '@/constants/BaseStyles';
 import { Login } from '@/hooks/hooks';
+import { saveToken } from '@/utils/authStorage';
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -23,6 +24,13 @@ export default function LoginScreen() {
       const response = await Login(email, password);
 
       // Store auth token 
+      if (response) {
+        const token = response?.data?.token;
+
+        if (token) {
+          await saveToken(token);
+        }
+      }
     } catch (error) {
       console.error('Login error:', error);
       // Display a generic error message
