@@ -4,6 +4,7 @@ const TOKEN_KEY = 'auth-token';
 
 export async function saveToken(token: string) {
     await SecureStore.setItemAsync(TOKEN_KEY, token);
+
 }
 
 export async function getToken() {

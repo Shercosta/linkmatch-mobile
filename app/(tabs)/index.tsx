@@ -6,10 +6,6 @@ import { saveToken } from '@/utils/authStorage';
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 
-// Assuming you have a basic Button component or will use TouchableOpacity directly
-// For simplicity, I'll use TouchableOpacity with ThemedText inside for the button.
-// If you have a dedicated Button component, you can replace this.
-
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +16,6 @@ export default function LoginScreen() {
     console.log('Attempting to log in with:', { email, password });
 
     try {
-      // Simulate API call delay
       const response = await Login(email, password);
 
       // Store auth token 

@@ -31,31 +31,11 @@ export default function RegisterScreen() {
     console.log('Attempting to register with:', { username, password });
 
     try {
-      // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Placeholder for actual registration logic
-      // In a real app, you would make an API call to your Go backend:
-      // const response = await fetch('YOUR_GO_BACKEND_REGISTER_ENDPOINT', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ username, email, password }),
-      // });
-      // const data = await response.json();
-      // if (response.ok) {
-      //   console.log('Registration successful!', data);
-      //   // Navigate to login or home screen
-      // } else {
-      //   setError(data.message || 'Registration failed. Please try again.');
-      // }
 
       // Simulate successful registration
       if (username && password === confirmPassword) {
         console.log('Registration successful!');
-        // You might want to navigate to the login page here
-        // router.replace('/login'); // Assuming you have expo-router setup
       } else {
         setError('Registration failed. Please check your details.');
       }
