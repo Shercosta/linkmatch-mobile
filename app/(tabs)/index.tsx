@@ -1,8 +1,8 @@
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { Colors } from '@/constants/Colors';
+import { baseStyles } from '@/constants/BaseStyles';
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { TextInput, TouchableOpacity, View } from 'react-native';
 
 // Assuming you have a basic Button component or will use TouchableOpacity directly
 // For simplicity, I'll use TouchableOpacity with ThemedText inside for the button.
@@ -47,15 +47,15 @@ export default function LoginScreen() {
   };
 
   return (
-    <ThemedView style={styles.container}>
-      <ThemedView style={styles.headerContainer}>
+    <ThemedView style={baseStyles.container}>
+      <ThemedView style={baseStyles.headerContainer}>
         <ThemedText type="title">Welcome Back!</ThemedText>
         <ThemedText type="subtitle">Login to your LinkMatch account</ThemedText>
       </ThemedView>
 
-      <ThemedView style={styles.formContainer}>
+      <ThemedView style={baseStyles.formContainer}>
         <TextInput
-          style={styles.input}
+          style={baseStyles.input}
           placeholder="Username"
           placeholderTextColor="#888"
           keyboardType="default"
@@ -65,7 +65,7 @@ export default function LoginScreen() {
           editable={!loading} // Disable input when loading
         />
         <TextInput
-          style={styles.input}
+          style={baseStyles.input}
           placeholder="Password"
           placeholderTextColor="#888"
           secureTextEntry
@@ -75,82 +75,26 @@ export default function LoginScreen() {
         />
 
         <TouchableOpacity
-          style={[styles.button, loading && styles.buttonDisabled]}
+          style={[baseStyles.button, loading && baseStyles.buttonDisabled]}
           onPress={handleLogin}
           disabled={loading} // Disable button when loading
         >
-          <ThemedText style={styles.buttonText}>
+          <ThemedText style={baseStyles.buttonText}>
             {loading ? 'Logging In...' : 'Login'}
           </ThemedText>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.linkButton}>
+        <TouchableOpacity style={baseStyles.linkButton}>
           <ThemedText type="link">Forgot Password?</ThemedText>
         </TouchableOpacity>
 
-        <View style={styles.registerContainer}>
+        <View style={baseStyles.registerContainer}>
           <ThemedText>Don&apos;t have an account? </ThemedText>
-          <TouchableOpacity style={styles.linkButton}>
-            <ThemedText style={styles.linkButtonText}>Register here</ThemedText>
+          <TouchableOpacity style={baseStyles.linkButton}>
+            <ThemedText style={baseStyles.linkButtonText}>Register here</ThemedText>
           </TouchableOpacity>
         </View>
       </ThemedView>
     </ThemedView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  headerContainer: {
-    marginBottom: 40,
-    alignItems: 'center',
-  },
-  formContainer: {
-    width: '100%',
-    maxWidth: 350,
-    alignItems: 'center',
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    marginBottom: 15,
-    backgroundColor: '#f9f9f9', // Light background for input
-    color: '#333', // Dark text color for input
-  },
-  button: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#FF4D6D', // Your brand color for the button
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  buttonDisabled: {
-    backgroundColor: '#FF8A9E', // Lighter shade when disabled
-  },
-  buttonText: {
-    color: '#fff', // White text for the button
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  linkButton: {
-    marginBottom: 10,
-  },
-  linkButtonText: {
-    color: Colors.light.tabIconDefault, // Your brand color for the link
-  },
-  registerContainer: {
-    flexDirection: 'row',
-    marginTop: 20,
-  },
-});
