@@ -1,6 +1,7 @@
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { baseStyles } from '@/constants/BaseStyles';
+import { Login } from '@/hooks/hooks';
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -14,30 +15,14 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false); // State for loading indicator
 
   const handleLogin = async () => {
-    // In a real app, you would:
-    // 1. Validate inputs (e.g., email format, password length)
-    // 2. Set loading state to true
-    // 3. Make an API call to your Go backend for authentication
-    // 4. Handle success (e.g., navigate to home screen, save auth token)
-    // 5. Handle errors (e.g., display error message to user)
-    // 6. Set loading state to false
-
     setLoading(true);
     console.log('Attempting to log in with:', { email, password });
 
     try {
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const response = await Login(email, password);
 
-      // Placeholder for actual login logic
-      if (email === 'test@example.com' && password === 'password123') {
-        console.log('Login successful!');
-        // Navigate to main app screen (e.g., using router.replace('/home'))
-        // For now, we'll just log success.
-      } else {
-        console.log('Login failed: Invalid credentials');
-        // Display an error message to the user
-      }
+      // Store auth token 
     } catch (error) {
       console.error('Login error:', error);
       // Display a generic error message
