@@ -3,6 +3,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { baseStyles } from '@/constants/BaseStyles';
 import { Login } from '@/hooks/hooks';
 import { saveToken } from '@/utils/authStorage';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -34,10 +35,14 @@ export default function LoginScreen() {
     }
   };
 
+  function debug() {
+    router.push('/(auth)')
+  }
+
   return (
     <ThemedView style={baseStyles.container}>
       <ThemedView style={baseStyles.headerContainer}>
-        <ThemedText type="title">Welcome Back!</ThemedText>
+        <ThemedText type="title" onPress={debug}>Welcome Back!</ThemedText>
         <ThemedText type="subtitle">Login to your LinkMatch account</ThemedText>
       </ThemedView>
 
