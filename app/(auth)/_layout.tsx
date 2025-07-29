@@ -36,18 +36,18 @@ export default function AuthLayout() {
             }}
         >
             <Tabs.Screen
-                name="index"
-                options={{
-                    title: 'Profile',
-                    tabBarIcon: ({ color }) => <MaterialCommunityIcons name="account" size={24} color={color} />,
-                    headerShown: false
-                }}
-            />
-            <Tabs.Screen
                 name="swiper"
                 options={{
                     title: 'Swipe Date',
                     tabBarIcon: ({ color }) => <MaterialCommunityIcons name="calendar" size={24} color={color} />,
+                    headerShown: false
+                }}
+            />
+            <Tabs.Screen
+                name="index"
+                options={{
+                    title: 'Profile',
+                    tabBarIcon: ({ color }) => <MaterialCommunityIcons name="account" size={24} color={color} />,
                     headerShown: false
                 }}
             />
