@@ -1,3 +1,7 @@
+import { GetProfile } from "@/hooks/hooks";
+import { useUserStore } from "@/stores/auth";
+import { UserType } from "@/utils/base-types";
+import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 const fakeUserData = {
@@ -7,6 +11,50 @@ const fakeUserData = {
 };
 
 export default function Profile() {
+    const [user, setUser] = React.useState<UserType | null>(null)
+    const [loading, setLoading] = React.useState(true);
+
+    const { user: storedUser } = useUserStore()
+
+    const handleProfile = async () => {
+        setLoading(true);
+
+        try {
+            const response = await GetProfile();
+
+            if (response) {
+                setUser({
+                    username: response.data.username,
+                    name: response.data.name,
+                    professional_title: response.data.professional_title,
+                })
+
+                useUserStore.getState().setUser(response.data);
+            }
+        } catch (error) {
+            console.error('Get Profile Error:', error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    React.useEffect(() => {
+        console.log(storedUser);
+        if (!storedUser) {
+            handleProfile()
+        } else {
+            setLoading(false);
+        }
+    }, [storedUser])
+
+    if (loading) {
+        return (
+            <View style={styles.container}>
+                <Text>Loading...</Text>
+            </View>
+        )
+    }
+
     return (
         <>
             <View style={styles.container}>
@@ -15,9 +63,9 @@ export default function Profile() {
                     style={styles.avatar}
                 />
                 <View style={styles.infoContainer}>
-                    <Text style={styles.username}>@{fakeUserData.username}</Text>
-                    <Text style={styles.name}>{fakeUserData.name}</Text>
-                    <Text style={styles.title}>{fakeUserData.professional_title}</Text>
+                    <Text style={styles.username} onPress={() => console.log(storedUser)}>@{user?.username}</Text>
+                    <Text style={styles.name}>{user?.name}</Text>
+                    <Text style={styles.title}>{user?.professional_title}</Text>
                 </View>
             </View>
         </>

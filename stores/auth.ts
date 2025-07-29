@@ -1,3 +1,4 @@
+import { UserType } from '@/utils/base-types';
 import { create } from 'zustand';
 
 interface AuthState {
@@ -17,3 +18,13 @@ export const useAuthStore = create<AuthState>((set) => ({
     logout: () =>
         set({ token: null, username: null, isAuthenticated: false }),
 }));
+
+interface UserState {
+    user: UserType | null,
+    setUser: (userPass: UserType) => void;
+}
+
+export const useUserStore = create<UserState>((set) => ({
+    user: null,
+    setUser: (userPass: UserType) => set({ user: userPass }),
+}))
