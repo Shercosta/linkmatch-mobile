@@ -4,12 +4,6 @@ import { UserType } from "@/utils/base-types";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
-const fakeUserData = {
-    username: 'sakura',
-    name: 'Sakura Miyawaki',
-    professional_title: 'LE SSERAFIM Member',
-};
-
 export default function Profile() {
     const [user, setUser] = React.useState<UserType | null>(null)
     const [loading, setLoading] = React.useState(true);
