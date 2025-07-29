@@ -1,3 +1,3 @@
 export const ENV = {
-    API_URL: 'https://354bf8df8f0e.ngrok-free.app'
+    API_URL: 'https://f06c5666f870.ngrok-free.app'
 }

@@ -43,6 +43,14 @@ export default function AuthLayout() {
                     headerShown: false
                 }}
             />
+            <Tabs.Screen
+                name="swiper"
+                options={{
+                    title: 'Swipe Date',
+                    tabBarIcon: ({ color }) => <MaterialCommunityIcons name="calendar" size={24} color={color} />,
+                    headerShown: false
+                }}
+            />
         </Tabs>
     )
 }

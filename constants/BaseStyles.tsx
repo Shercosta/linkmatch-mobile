@@ -68,5 +68,30 @@ export const baseStyles = StyleSheet.create({
   registerContainer: {
     flexDirection: "row",
     marginBottom: 20
-  }
+  },
+  swiper_container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fefefe',
+  },
+  card: {
+    flex: 1,
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    elevation: 5,
+    shadowColor: '#000',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  emoji: {
+    fontSize: 100,
+  },
+  index: {
+    marginTop: 20,
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+
 });
