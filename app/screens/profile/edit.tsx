@@ -1,10 +1,12 @@
 import { baseStyles } from "@/constants/BaseStyles"
 import { Colors } from "@/constants/Colors"
-import { ParseCv } from "@/hooks/profile"
+import { ParseCv, UpdateProfile } from "@/hooks/profile"
 import { useUserStore } from "@/stores/auth"
 import { UserType } from "@/utils/base-types"
 import { ProfessionalTitle } from "@/utils/professional-title-guesser"
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons"
 import * as DocumentPicker from 'expo-document-picker'
+import { router } from "expo-router"
 import React from "react"
 import {
     StyleSheet,
@@ -46,6 +48,25 @@ export default function EditProfile() {
             setUserForm((prev) => prev ? { ...prev, professional_title: professional_title } : null)
 
             // You may also want to store `destPath` in state
+        }
+    }
+
+    const handleUpdateProfile = async () => {
+        const constructBody: UserType = {
+            username: user?.username || '',
+            name: userForm?.name || null,
+            description: userForm?.description || null,
+            location: userForm?.location || null,
+            professional_title: userForm?.professional_title || null,
+            company_name: userForm?.company_name || null,
+            cv_json: cvJson || null,
+        }
+
+        const response = await UpdateProfile(constructBody)
+
+        if (response) {
+            useUserStore.getState().setUser(null)
+            router.push('/(auth)')
         }
     }
 
@@ -115,6 +136,10 @@ export default function EditProfile() {
                 }
                 style={styles.input}
             />
+
+            <TouchableOpacity onPress={handleUpdateProfile} style={{ ...styles.uploadButton, backgroundColor: Colors.light.tint }}>
+                <MaterialCommunityIcons name="content-save" size={24} color={Colors.light.background} />
+            </TouchableOpacity>
         </View>
     )
 }

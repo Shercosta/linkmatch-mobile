@@ -21,10 +21,10 @@ export const useAuthStore = create<AuthState>((set) => ({
 
 interface UserState {
     user: UserType | null,
-    setUser: (userPass: UserType) => void;
+    setUser: (userPass: UserType | null) => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
     user: null,
-    setUser: (userPass: UserType) => set({ user: userPass }),
+    setUser: (userPass: UserType | null) => set({ user: userPass }),
 }))

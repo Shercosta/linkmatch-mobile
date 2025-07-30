@@ -1,3 +1,4 @@
+import { UserType } from "@/utils/base-types";
 import { ApiFetcher } from "./hooks";
 
 export async function ParseCv(file: {
@@ -17,6 +18,15 @@ export async function ParseCv(file: {
     const response = await ApiFetcher(url, 'POST', {
         'Content-Type': 'multipart/form-data',
     }, formData);
+
+    return response;
+}
+
+export async function UpdateProfile(data: UserType) {
+    const url = '/api/profile';
+    const response = await ApiFetcher(url, 'PUT', {
+        'Content-Type': 'application/json',
+    }, undefined, data);
 
     return response;
 }
