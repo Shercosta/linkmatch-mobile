@@ -16,7 +16,8 @@ export function ProfessionalTitle(jsonCv: any) {
                     }
                 }
             }
-        } else if (jsonCv.hasOwnProperty('projects')) {
+        }
+        if (professional_title === '' && jsonCv.hasOwnProperty('projects')) {
             if (Array.isArray(jsonCv.projects)) {
                 for (let i = 0; i < jsonCv.projects.length; i++) {
                     if (jsonCv.projects[i].hasOwnProperty('name')) {
@@ -25,7 +26,8 @@ export function ProfessionalTitle(jsonCv: any) {
                     }
                 }
             }
-        } else if (jsonCv.hasOwnProperty('education')) {
+        }
+        if (professional_title === '' && jsonCv.hasOwnProperty('education')) {
             if (Array.isArray(jsonCv.education)) {
                 for (let i = 0; i < jsonCv.education.length; i++) {
                     if (jsonCv.education[i].hasOwnProperty('institution')) {
@@ -35,6 +37,13 @@ export function ProfessionalTitle(jsonCv: any) {
                 }
             }
         }
+        if (professional_title === '' && jsonCv.hasOwnProperty('profile')) {
+            if (typeof jsonCv.profile === 'string') {
+                // cut the string
+                professional_title = jsonCv.profile.split('.')[0];
+            }
+        }
+
     } catch (error) {
         console.error(error);
     }
