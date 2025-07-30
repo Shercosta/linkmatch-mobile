@@ -93,5 +93,18 @@ export const baseStyles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
+  baseContainer: {
+    padding: 20,
+  },
+  baseInput: {
+    height: 50,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    marginBottom: 15,
+    backgroundColor: '#f9f9f9',
+    color: '#333',
+  }
 
 });

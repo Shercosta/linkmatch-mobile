@@ -19,11 +19,7 @@ export default function Profile() {
             const response = await GetProfile();
 
             if (response) {
-                setUser({
-                    username: response.data.username,
-                    name: response.data.name,
-                    professional_title: response.data.professional_title,
-                })
+                setUser(response.data);
 
                 useUserStore.getState().setUser(response.data);
             }
@@ -35,7 +31,6 @@ export default function Profile() {
     }
 
     React.useEffect(() => {
-        console.log(storedUser);
         if (!storedUser) {
             handleProfile()
         } else {
