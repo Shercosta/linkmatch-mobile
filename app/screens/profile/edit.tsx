@@ -105,6 +105,16 @@ export default function EditProfile() {
                 style={styles.input}
                 editable={!!cvJson}
             />
+
+            <Text style={styles.label}>Company Name</Text>
+            <TextInput
+                placeholder="Company Name"
+                value={userForm?.company_name || ''}
+                onChangeText={(text) =>
+                    setUserForm((prev) => prev ? { ...prev, company_name: text } : null)
+                }
+                style={styles.input}
+            />
         </View>
     )
 }
