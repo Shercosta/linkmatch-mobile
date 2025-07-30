@@ -1,9 +1,10 @@
 import { baseStyles } from "@/constants/BaseStyles"
 import { Colors } from "@/constants/Colors"
+import { ParseCv } from "@/hooks/profile"
 import { useUserStore } from "@/stores/auth"
 import { UserType } from "@/utils/base-types"
+import { ProfessionalTitle } from "@/utils/professional-title-guesser"
 import * as DocumentPicker from 'expo-document-picker'
-import * as FileSystem from 'expo-file-system'
 import React from "react"
 import {
     StyleSheet,
@@ -19,7 +20,6 @@ export default function EditProfile() {
     const [cvName, setCvName] = React.useState<string | null>(null)
     const [cvJson, setCvJson] = React.useState<object | null>(null)
 
-    console.log("Pass")
     const handlePickCV = async () => {
         const result = await DocumentPicker.getDocumentAsync({
             type: 'application/pdf',
@@ -31,25 +31,19 @@ export default function EditProfile() {
             const originalUri = file.uri
             const fileName = file.name
 
-            // Define your target directory and path
-            const destDir = FileSystem.documentDirectory + 'cv/'
-            const destPath = destDir + fileName
-
-            // Ensure the directory exists
-            const dirInfo = await FileSystem.getInfoAsync(destDir)
-            if (!dirInfo.exists) {
-                await FileSystem.makeDirectoryAsync(destDir, { intermediates: true })
-            }
-
-            // Copy the file to the desired path
-            await FileSystem.copyAsync({
-                from: originalUri,
-                to: destPath,
+            const jsonCv = await ParseCv({
+                uri: originalUri,
+                name: fileName,
+                type: file.mimeType || 'application/pdf',
             })
 
-            // Save the path or show success
-            console.log('CV stored at:', destPath)
             setCvName(file.name)
+
+            setCvJson(jsonCv)
+
+            const professional_title = ProfessionalTitle(jsonCv)
+
+            setUserForm((prev) => prev ? { ...prev, professional_title: professional_title } : null)
 
             // You may also want to store `destPath` in state
         }
@@ -103,12 +97,13 @@ export default function EditProfile() {
 
             <Text style={styles.label}>Professional Title</Text>
             <TextInput
-                placeholder="Professional Title"
+                placeholder={!cvJson ? "Please Upload your CV first" : "Professional Title"}
                 value={userForm?.professional_title || ''}
                 onChangeText={(text) =>
                     setUserForm((prev) => prev ? { ...prev, professional_title: text } : null)
                 }
                 style={styles.input}
+                editable={!!cvJson}
             />
         </View>
     )

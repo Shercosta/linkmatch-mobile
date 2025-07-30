@@ -9,18 +9,37 @@ export function be(endpoint: string): string {
 
 export type MethodType = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-export async function ApiFetcher(endpoint: string, method: MethodType) {
-    // get auth token
+export async function ApiFetcher(
+    endpoint: string,
+    method: MethodType,
+    passHeaders: Record<string, string> = {},
+    formData?: FormData,
+    jsonData?: object
+) {
+    // Get auth token
     const token = useAuthStore.getState().token;
-    console.log('API request from: ', endpoint)
+    console.log('API request from:', endpoint);
+
+    const baseHeaders: Record<string, string> = {
+        'Authorization': `Bearer ${token}`,
+        ...passHeaders,
+    };
+
+    // Determine request body and headers
+    let body: BodyInit | undefined = undefined;
+
+    if (formData) {
+        body = formData;
+    } else if (jsonData) {
+        body = JSON.stringify(jsonData);
+        baseHeaders['Content-Type'] = 'application/json';
+    }
 
     try {
         const response = await fetch(be(endpoint), {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            }
+            method,
+            headers: formData ? baseHeaders : baseHeaders, // Don't add Content-Type for FormData
+            body,
         });
 
         if (!response.ok) {
@@ -29,13 +48,14 @@ export async function ApiFetcher(endpoint: string, method: MethodType) {
             throw new Error('API request failed');
         }
 
-        const data = await response.json()
+        const data = await response.json();
         return data;
     } catch (error: any) {
         console.error('API error:', error.message || error);
         throw error;
     }
 }
+
 
 export async function Login(username: string, password: string) {
     const url = be('/auth/login');
@@ -74,7 +94,9 @@ export async function Login(username: string, password: string) {
 
 export async function GetProfile() {
     const url = '/api/profile'
-    const response = await ApiFetcher(url, 'GET')
+    const response = await ApiFetcher(url, 'GET', {
+        'Content-Type': 'application/json',
+    })
 
     return response
 }
