@@ -36,7 +36,7 @@ export default function LoginScreen() {
   };
 
   function debug() {
-    router.push('/(auth)')
+    router.push('/(auth)/index')
   }
 
   return (

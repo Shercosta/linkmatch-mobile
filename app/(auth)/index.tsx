@@ -1,8 +1,10 @@
 import { GetProfile } from "@/hooks/hooks";
 import { useUserStore } from "@/stores/auth";
 import { UserType } from "@/utils/base-types";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { router } from "expo-router";
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Profile() {
     const [user, setUser] = React.useState<UserType | null>(null)
@@ -50,19 +52,27 @@ export default function Profile() {
     }
 
     return (
-        <>
+        <View style={styles.cardWrapper}>
+            <TouchableOpacity
+                style={styles.editIconButton}
+                onPress={() => router.push('/screens/profile/edit')}
+            >
+                <MaterialCommunityIcons name="pencil" size={24} color="black" />
+            </TouchableOpacity>
+
             <View style={styles.container}>
                 <Image
                     source={{ uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
                     style={styles.avatar}
                 />
                 <View style={styles.infoContainer}>
-                    <Text style={styles.username} onPress={() => console.log(storedUser)}>@{user?.username}</Text>
+                    <Text style={styles.username}>@{user?.username}</Text>
                     <Text style={styles.name}>{user?.name}</Text>
                     <Text style={styles.title}>{user?.professional_title}</Text>
                 </View>
             </View>
-        </>
+        </View>
+
     );
 }
 
@@ -105,4 +115,26 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#555',
     },
+    cardWrapper: {
+        position: 'relative',
+        margin: 20,
+    },
+
+    editIconButton: {
+        position: 'absolute',
+        top: 30,
+        right: 30,
+        // backgroundColor: '#007AFF',
+        paddingVertical: 6,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        zIndex: 1,
+    },
+
+    editIconText: {
+        color: 'white',
+        fontSize: 14,
+        fontWeight: '600',
+    },
+
 });
