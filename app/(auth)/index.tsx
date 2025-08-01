@@ -5,7 +5,7 @@ import { UserType } from "@/utils/base-types";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router } from "expo-router";
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Profile() {
     const [user, setUser] = React.useState<UserType | null>(null)
@@ -48,41 +48,45 @@ export default function Profile() {
     }
 
     return (
-        <View style={styles.cardWrapper}>
-            <TouchableOpacity
-                style={styles.editIconButton}
-                onPress={() => router.push('/screens/profile/edit')}
-            >
-                <MaterialCommunityIcons name="pencil" size={24} color="black" />
-            </TouchableOpacity>
+        <ScrollView
+            contentContainerStyle={{ padding: 16 }}
+        >
+            <View style={styles.cardWrapper}>
+                <TouchableOpacity
+                    style={styles.editIconButton}
+                    onPress={() => router.push('/screens/profile/edit')}
+                >
+                    <MaterialCommunityIcons name="pencil" size={24} color="black" />
+                </TouchableOpacity>
 
-            <View style={styles.container}>
-                <Image
-                    source={{ uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
-                    style={styles.avatar}
-                />
-                <View style={styles.infoContainer}>
-                    <Text style={styles.username}>@{user?.username}</Text>
-                    <Text style={styles.name}>{user?.name}</Text>
-                    <Text style={styles.title}>{user?.professional_title}
-                        {user?.company_name ? ` at ${user?.company_name}` : ''}
-                    </Text>
+                <View style={styles.container}>
+                    <Image
+                        source={{ uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
+                        style={styles.avatar}
+                    />
+                    <View style={styles.infoContainer}>
+                        <Text style={styles.username}>@{user?.username}</Text>
+                        <Text style={styles.name}>{user?.name}</Text>
+                        <Text style={styles.title}>{user?.professional_title}
+                            {user?.company_name ? ` at ${user?.company_name}` : ''}
+                        </Text>
+                    </View>
                 </View>
-            </View>
 
-            <View style={styles.container}>
-                <View style={{
-                    ...styles.infoContainer,
-                    rowGap: 30
-                }}>
-                    <Text style={styles.text}>{user?.description}</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <MaterialCommunityIcons name="map-marker" size={24} color="#888" />
-                        <Text style={styles.text}>{user?.location}</Text>
+                <View style={styles.container}>
+                    <View style={{
+                        ...styles.infoContainer,
+                        rowGap: 30
+                    }}>
+                        <Text style={styles.text}>{user?.description}</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <MaterialCommunityIcons name="map-marker" size={24} color="#888" />
+                            <Text style={styles.text}>{user?.location}</Text>
+                        </View>
                     </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
 
     );
 }
@@ -132,7 +136,7 @@ const styles = StyleSheet.create({
     },
     cardWrapper: {
         position: 'relative',
-        margin: 20,
+        // margin: 20,
     },
 
     editIconButton: {
