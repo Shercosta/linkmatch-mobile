@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { GetProfile } from "@/hooks/hooks";
 import { useUserStore } from "@/stores/auth";
 import { UserType } from "@/utils/base-types";
@@ -63,8 +64,14 @@ export default function Profile() {
                 <View style={styles.infoContainer}>
                     <Text style={styles.username}>@{user?.username}</Text>
                     <Text style={styles.name}>{user?.name}</Text>
-                    <Text style={styles.title}>{user?.professional_title}</Text>
+                    <Text style={styles.title}>{user?.professional_title}
+                        {user?.company_name ? ` at ${user?.company_name}` : ''}
+                    </Text>
                 </View>
+            </View>
+
+            <View style={styles.container}>
+                <Text style={styles.text}>{user?.description}</Text>
             </View>
         </View>
 
@@ -109,6 +116,10 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         color: '#555',
+    },
+    text: {
+        fontSize: 16,
+        color: Colors.light.text,
     },
     cardWrapper: {
         position: 'relative',

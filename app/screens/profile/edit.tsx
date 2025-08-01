@@ -9,6 +9,9 @@ import * as DocumentPicker from 'expo-document-picker'
 import { router } from "expo-router"
 import React from "react"
 import {
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
     StyleSheet,
     Text,
     TextInput,
@@ -72,75 +75,85 @@ export default function EditProfile() {
 
 
     return (
-        <View style={baseStyles.baseContainer}>
-            <Text style={styles.title} onPress={() => console.log(cvJson)}>Edit Profile</Text>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            style={{ flex: 1 }}
+        >
+            <ScrollView
+                contentContainerStyle={{ padding: 16 }}
+                keyboardShouldPersistTaps="handled"
+            >
+                <View style={baseStyles.baseContainer}>
+                    <Text style={styles.title} onPress={() => console.log(cvJson)}>Edit Profile</Text>
 
-            <Text style={styles.label}>Username</Text>
-            <Text style={styles.username}>@{userForm?.username}</Text>
+                    <Text style={styles.label}>Username</Text>
+                    <Text style={styles.username}>@{userForm?.username}</Text>
 
-            <Text style={styles.label}>Name</Text>
-            <TextInput
-                placeholder="Name"
-                value={userForm?.name || ''}
-                onChangeText={(text) =>
-                    setUserForm((prev) => prev ? { ...prev, name: text } : null)
-                }
-                style={styles.input}
-            />
+                    <Text style={styles.label}>Name</Text>
+                    <TextInput
+                        placeholder="Name"
+                        value={userForm?.name || ''}
+                        onChangeText={(text) =>
+                            setUserForm((prev) => prev ? { ...prev, name: text } : null)
+                        }
+                        style={styles.input}
+                    />
 
-            <Text style={styles.label}>Description</Text>
-            <TextInput
-                placeholder="Description"
-                value={userForm?.description || ''}
-                onChangeText={(text) =>
-                    setUserForm((prev) => prev ? { ...prev, description: text } : null)
-                }
-                style={styles.input}
-                multiline
-            />
+                    <Text style={styles.label}>Description</Text>
+                    <TextInput
+                        placeholder="Description"
+                        value={userForm?.description || ''}
+                        onChangeText={(text) =>
+                            setUserForm((prev) => prev ? { ...prev, description: text } : null)
+                        }
+                        style={styles.input}
+                        multiline
+                    />
 
-            <Text style={styles.label}>Location</Text>
-            <TextInput
-                placeholder="Location"
-                value={userForm?.location || ''}
-                onChangeText={(text) =>
-                    setUserForm((prev) => prev ? { ...prev, location: text } : null)
-                }
-                style={styles.input}
-            />
+                    <Text style={styles.label}>Location</Text>
+                    <TextInput
+                        placeholder="Location"
+                        value={userForm?.location || ''}
+                        onChangeText={(text) =>
+                            setUserForm((prev) => prev ? { ...prev, location: text } : null)
+                        }
+                        style={styles.input}
+                    />
 
-            <Text style={styles.label}>Upload CV (PDF)</Text>
-            <TouchableOpacity onPress={handlePickCV} style={styles.uploadButton}>
-                <Text style={styles.uploadButtonText}>
-                    {cvName ? `📄 ${cvName}` : "📤 Upload CV"}
-                </Text>
-            </TouchableOpacity>
+                    <Text style={styles.label}>Upload CV (PDF)</Text>
+                    <TouchableOpacity onPress={handlePickCV} style={styles.uploadButton}>
+                        <Text style={styles.uploadButtonText}>
+                            {cvName ? `📄 ${cvName}` : "📤 Upload CV"}
+                        </Text>
+                    </TouchableOpacity>
 
-            <Text style={styles.label}>Professional Title</Text>
-            <TextInput
-                placeholder={!cvJson ? "Please Upload your CV first" : "Professional Title"}
-                value={userForm?.professional_title || ''}
-                onChangeText={(text) =>
-                    setUserForm((prev) => prev ? { ...prev, professional_title: text } : null)
-                }
-                style={styles.input}
-                editable={!!cvJson}
-            />
+                    <Text style={styles.label}>Professional Title</Text>
+                    <TextInput
+                        placeholder={!cvJson ? "Please Upload your CV first" : "Professional Title"}
+                        value={userForm?.professional_title || ''}
+                        onChangeText={(text) =>
+                            setUserForm((prev) => prev ? { ...prev, professional_title: text } : null)
+                        }
+                        style={styles.input}
+                        editable={!!cvJson}
+                    />
 
-            <Text style={styles.label}>Company Name</Text>
-            <TextInput
-                placeholder="Company Name"
-                value={userForm?.company_name || ''}
-                onChangeText={(text) =>
-                    setUserForm((prev) => prev ? { ...prev, company_name: text } : null)
-                }
-                style={styles.input}
-            />
+                    <Text style={styles.label}>Company Name</Text>
+                    <TextInput
+                        placeholder="Company Name"
+                        value={userForm?.company_name || ''}
+                        onChangeText={(text) =>
+                            setUserForm((prev) => prev ? { ...prev, company_name: text } : null)
+                        }
+                        style={styles.input}
+                    />
 
-            <TouchableOpacity onPress={handleUpdateProfile} style={{ ...styles.uploadButton, backgroundColor: Colors.light.tint }}>
-                <MaterialCommunityIcons name="content-save" size={24} color={Colors.light.background} />
-            </TouchableOpacity>
-        </View>
+                    <TouchableOpacity onPress={handleUpdateProfile} style={{ ...styles.uploadButton, backgroundColor: Colors.light.tint }}>
+                        <MaterialCommunityIcons name="content-save" size={24} color={Colors.light.background} />
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
