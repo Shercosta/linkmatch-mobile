@@ -66,7 +66,7 @@ export default function EditProfile() {
 
         if (response) {
             useUserStore.getState().setUser(null)
-            router.push('/(auth)')
+            router.back()
         }
     }
 
