@@ -20,7 +20,7 @@ export default function EditProfile() {
     const { user } = useUserStore()
     const [userForm, setUserForm] = React.useState<UserType | null>(user)
     const [cvName, setCvName] = React.useState<string | null>(null)
-    const [cvJson, setCvJson] = React.useState<object | null>(null)
+    const [cvJson, setCvJson] = React.useState<object | null>(user?.cv_json || null)
 
     const handlePickCV = async () => {
         const result = await DocumentPicker.getDocumentAsync({
