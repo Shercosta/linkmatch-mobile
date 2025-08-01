@@ -71,7 +71,16 @@ export default function Profile() {
             </View>
 
             <View style={styles.container}>
-                <Text style={styles.text}>{user?.description}</Text>
+                <View style={{
+                    ...styles.infoContainer,
+                    rowGap: 30
+                }}>
+                    <Text style={styles.text}>{user?.description}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <MaterialCommunityIcons name="map-marker" size={24} color="#888" />
+                        <Text style={styles.text}>{user?.location}</Text>
+                    </View>
+                </View>
             </View>
         </View>
 
