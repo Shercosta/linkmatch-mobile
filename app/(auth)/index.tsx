@@ -5,7 +5,7 @@ import { UserType } from "@/utils/base-types";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router } from "expo-router";
 import React from "react";
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Profile() {
     const [user, setUser] = React.useState<UserType | null>(null)
@@ -41,8 +41,12 @@ export default function Profile() {
 
     if (loading || !user) {
         return (
-            <View style={styles.container}>
-                <Text>Loading...</Text>
+            <View style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <ActivityIndicator size="large" color={Colors.light.icon} />
             </View>
         )
     }
