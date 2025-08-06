@@ -86,43 +86,50 @@ export default function Profile() {
                     </View>
                 </View>
 
-                {user?.Image && user.Image.length > 0 && (
+                {user?.Image && user?.Image?.length > 0 && (
                     <ScrollView
                         horizontal
                         showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{
+                            paddingHorizontal: 20,
+                        }}
                         style={{
-                            padding: 20,
+                            margin: 20,
                             backgroundColor: '#fff',
                             borderRadius: 16,
-                            margin: 20,
                             shadowColor: '#000',
                             shadowOffset: { width: 0, height: 2 },
                             shadowOpacity: 0.1,
                             shadowRadius: 6,
                             elevation: 4,
+                            paddingTop: 16,
+                            paddingBottom: 16,
                         }}
                     >
-                        {user.Image.map((img, imgIndex) => (
+                        {user.Image.map((img, index) => (
                             <View
-                                key={imgIndex}
+                                key={index}
                                 style={{
                                     width: 200,
                                     height: 200,
-                                    marginRight: 16,
+                                    borderRadius: 8,
+                                    overflow: 'hidden',
+                                    marginRight: index !== (user.Image?.length ?? 0) - 1 ? 16 : 0,
                                 }}
                             >
                                 <Image
                                     source={{ uri: img.image_url }}
+                                    resizeMode="cover"
                                     style={{
                                         width: '100%',
                                         height: '100%',
-                                        borderRadius: 8,
                                     }}
                                 />
                             </View>
                         ))}
                     </ScrollView>
                 )}
+
             </View>
         </ScrollView>
 
