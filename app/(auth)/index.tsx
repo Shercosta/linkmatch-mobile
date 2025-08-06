@@ -39,7 +39,7 @@ export default function Profile() {
         }
     }, [storedUser])
 
-    if (loading) {
+    if (loading || !user) {
         return (
             <View style={styles.container}>
                 <Text>Loading...</Text>
@@ -61,7 +61,8 @@ export default function Profile() {
 
                 <View style={styles.container}>
                     <Image
-                        source={{ uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
+                        // source={{ uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
+                        source={user.Image && user.Image.length > 1 ? { uri: user.Image.find((image) => image.position === 1)?.image_url } : { uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
                         style={styles.avatar}
                     />
                     <View style={styles.infoContainer}>
