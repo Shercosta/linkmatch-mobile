@@ -132,6 +132,17 @@ export default function Profile() {
                                 />
                             </View>
                         ))}
+                        <TouchableOpacity
+                            style={{
+                                width: 200,
+                                height: 200,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                            onPress={() => router.push('/screens/profile/edit-pictures')}
+                        >
+                            <MaterialCommunityIcons name="plus" size={50} color={Colors.light.icon} />
+                        </TouchableOpacity>
                     </ScrollView>
                 )}
 
